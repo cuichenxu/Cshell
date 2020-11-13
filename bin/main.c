@@ -329,8 +329,8 @@ int loop() {
         int s_fd_in = dup(STDIN_FILENO);
         //printf("myshell-> ");
         //line = shell_readline();
-        printf("OurShell: %s",current_pwd_buffer);//打印提示：路径
-        line = readline(BEGIN(49, 34)"-> "CLOSE);  //readline是一个动态库，编译的时候需要加上　-lreadline
+        printf("\001\033[33m\002 Ourshell:%s\001\003\002",current_pwd_buffer);//打印提示：路径
+        line = readline(BEGIN(40,33)"$ "CLOSE);  //readline是一个动态库，编译的时候需要加上　-lreadline
         // 
         if (!line){
             printf("allocation error\n");
