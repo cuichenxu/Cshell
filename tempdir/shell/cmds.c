@@ -1,4 +1,40 @@
+// #include <algorithm>
+// #include <iostream>
+// #include <sstream>
+// #include <string>
+// #include <vector>
 #include "cmds.h"
+
+/** tab auto commands **/
+// char *autoCommand(const char *text, int state) {
+//     static vector<string> matches;
+//     static size_t match_index = 0;
+//     if (0==state) {
+//         matches.clear();
+//         match_index = 0;
+
+//         string textstr(text);
+//         for(auto word : vocabulory) {
+//             if(word.size() >= textstr.size() && word.compare(0,textstr.size(),textstr)==0) {
+//                 matches.push_back(word);
+//             }
+//         }
+//     }
+
+//     if(match_index >= matches.size()) {
+//         return nullptr;
+//     } else {
+//         return strdup(matches[match_index++].c_str());
+//     }
+// }
+
+// char **autoCommand(const char* text, int start, int end) {
+//     rl_attempted_completion_over = 1;
+//     return rl_completion_matches(text,autoCommand);
+// }
+
+
+/** system ... controller*/
 
 char *cmder[] = {
     "ls",
@@ -33,8 +69,8 @@ int (fun_help)(char** char_list){
 }
 
 int (*funcs[])(char**) = {
-    &fun_ls,//外部文件里面
-    &fun_ps,//外部文件里面
+    &fun_ls,
+    &fun_ps,
     &fun_cd,
     &fun_pwd,
     &fun_help,
@@ -65,7 +101,6 @@ int process(char** char_list){
 }
 
 char *shell_readline() {
-    int bufsize = 1024;
     int i = 0;
     char *buffer = malloc(sizeof(char)*bufsize);
     int c;
@@ -96,7 +131,7 @@ char *shell_readline() {
 }
 
 char **cut_line(char *line){
-    int bufsize = 64, i = 0;
+    int i = 0;
     char **tokens = malloc(bufsize*sizeof(char*));
     char *token;
 
@@ -137,7 +172,6 @@ int execute(char **char_list){
 }
 
 char *cut_str(int left,int right,char *line){
-    int bufsize = 512;
     char *buffer = malloc(sizeof(char)*bufsize);
     int j = 0;
     if(!buffer){
@@ -277,7 +311,6 @@ int execute_line(char *line){
 }
 
 void fresh_pwd(){
-    int bufsize = 1024;
     current_pwd_buffer = malloc(sizeof(char)*bufsize);
     if (!current_pwd_buffer){
         printf("allocation error1\n");

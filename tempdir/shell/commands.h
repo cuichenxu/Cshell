@@ -9,6 +9,9 @@
 #include <sys/types.h>
 #include <pwd.h>
 #include <grp.h>
+#include <readline/readline.h>
+#include <readline/history.h> //gcc main.c -lreadline
+#include "global.h"
 #define MAX_LEN 20
 
 //pwd
@@ -34,8 +37,6 @@ typedef struct ps_info
 }mps;
 
 //others
-
-int bufsize = 1024;
 char *buffer_pwd;
 
 char* get_mode(mode_t m,char* str);//显示文件读写权限函数

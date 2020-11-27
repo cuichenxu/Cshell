@@ -19,7 +19,7 @@
 * [@cuichenxu](https://github.com/cuichenxu)
 * [@ambitiousCC](https://github.com/ambitiousCC)
 
-目前已经完成基本shell命令16个(by 2020.11.13)
+目前已经完成基本shell命令16个(by 2020.11.13) tab
 
 其中代码学习了Internet中较好的shell实现方法，经过理解后整合成独立程序。目前测试中，暂无较大bug，但由于系统的多样性和不可预知性，在您的机器上可能出现问题。如果您发现问题，请第一时间提交issue。
 
@@ -51,6 +51,8 @@ $sudo apt-get install libreadline-dev
 #centos
 $ yum install libtermcap-devel ncurses-devel libevent-devel readline-devel
 ```
+
+4. add h file
 
 ## 如何贡献
 

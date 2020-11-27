@@ -343,7 +343,6 @@ void print_ps(struct ps_info *head)
 }
 
 int fun_pwd(char** char_list){
-    int bufsize = 1024;
     char *buffer = (char*)malloc(sizeof(char)*bufsize);
     if (!buffer){
         printf("allocation error1\n");
@@ -413,7 +412,6 @@ int fun_remove_dir(char** char_list)
     }
     return 1;   
 }
-
 
 int fun_touch(char** char_list){
     FILE *file = NULL;
