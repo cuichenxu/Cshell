@@ -1,49 +1,18 @@
-// #include <algorithm>
-// #include <iostream>
-// #include <sstream>
-// #include <string>
-// #include <vector>
-#include "cmds.h"
-
-/** tab auto commands **/
-// char *autoCommand(const char *text, int state) {
-//     static vector<string> matches;
-//     static size_t match_index = 0;
-//     if (0==state) {
-//         matches.clear();
-//         match_index = 0;
-
-//         string textstr(text);
-//         for(auto word : vocabulory) {
-//             if(word.size() >= textstr.size() && word.compare(0,textstr.size(),textstr)==0) {
-//                 matches.push_back(word);
-//             }
-//         }
-//     }
-
-//     if(match_index >= matches.size()) {
-//         return nullptr;
-//     } else {
-//         return strdup(matches[match_index++].c_str());
-//     }
-// }
-
-// char **autoCommand(const char* text, int start, int end) {
-//     rl_attempted_completion_over = 1;
-//     return rl_completion_matches(text,autoCommand);
-// }
-
-
+#include "./h/control.h"
+#include "string.h"
 /** system ... controller*/
 
 char *cmder[] = {
     "ls",
     "ps",
     "cd",
+    "rm",
+    "mv",
     "pwd",
     "help",
     "exit",
     "echo",
+    "tree",
     "touch",
     "mkdir",
     "remove_dir"
@@ -72,10 +41,13 @@ int (*funcs[])(char**) = {
     &fun_ls,
     &fun_ps,
     &fun_cd,
+    &fun_rm,
+    &fun_copy,
     &fun_pwd,
     &fun_help,
     &fun_exit,
     &fun_echo,
+    &fun_tree,
     &fun_touch,
     &fun_mkdir,
     &fun_remove_dir
@@ -326,7 +298,12 @@ void fresh_pwd(){
     }
 }
 
-int loop() {
+int loop(int argc, char **argv) {
+    // if(argc > 1 && string(argv[1])=="-d") {
+    //     rl_bind_key('\t',rl_insert);//tab controller
+    // }
+    // rl_attempted_completion_function = autoCommand;
+
     char *line;
     int state = 1;
     do{
@@ -334,16 +311,13 @@ int loop() {
         //dup()用来复制参数oldfd 所指的文件描述词, 并将它返回. 此新的文件描述词和参数oldfd 指的是同一个文件, 共享所有的锁定、读写位置和各项权限或旗标.
         int s_fd_out = dup(STDOUT_FILENO); 
         int s_fd_in = dup(STDIN_FILENO);
-        //printf("myshell-> ");
-        //line = shell_readline();
-        printf("OurShell: %s",current_pwd_buffer);//打印提示：路径
-        line = readline(BEGIN(49, 34)"-> "CLOSE);  //readline是一个动态库，编译的时候需要加上　-lreadline
-        // 
+        printf("\033[49;36mOurShell: %s\033[0m",current_pwd_buffer);//打印提示：路径
+        line = readline(BEGIN(49,36)"$v$"CLOSE);  //readline是一个动态库，编译的时候需要加上　-lreadline
         if (!line){
             printf("allocation error\n");
             exit(1);
         }
-        add_history(line);
+        add_history(line);        
 
         state = execute_line(line);
         

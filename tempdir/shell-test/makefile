@@ -9,4 +9,4 @@ $(prom): $(obj)
 %.o: %.c $(deps)
 	$(cc) -c $< -o $@ -lreadline
 clean:
-	rm -rf $(obj) $(prom)
+	rm -rf $(obj)

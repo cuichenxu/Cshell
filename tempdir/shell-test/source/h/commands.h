@@ -13,6 +13,7 @@
 #include <readline/history.h> //gcc main.c -lreadline
 #include "global.h"
 #define MAX_LEN 20
+#define BUFFER_SIZE 1024
 
 //pwd
 void record_pwd();
@@ -50,3 +51,6 @@ int fun_mkdir(char** char_list);
 int fun_pwd(char** char_list);
 int fun_remove_dir(char** char_list);
 int fun_touch(char** char_list);
+int fun_copy(char **argv);
+int fun_rm(char** argv);
+int fun_tree(char **argv);
